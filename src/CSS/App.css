@@ -1,10 +1,88 @@
-.App {
+body{
+  background-color: rgb(239, 246, 250);
+}
+nav {  
+  box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.5);
+  border-radius: 10px;
+  background: white;
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+}
+a {
+  color: black;
+  border-radius: 10px;
+  font-size: 26px;
+  text-decoration: none;
+  padding: 10px;
+}
+a:hover {
+  color: white;
+  background-color: gray;
+}
+input {
+  background-color: darkgray;
+  border-radius: 15px;
+  border-color: transparent;
+  font-size: 26px;
+  padding: 5px;
+}
+input[type="text"]{
+  height: 40px;
+  margin-bottom: 10px;
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+input[type="button"]{  
+  width: 50px;
+  height:50px;
+  margin: 5px;
+}
+input[type="button"]:hover{  
+  background-color: rgb(102, 101, 101);
+  color: white;
+  cursor: pointer;
+}
+ul{
+  list-style-type: none;
+  font-size: 26px;
+}
+.card{
+  border-radius: 20px;
+  padding: 20px;
+}
+.card-header{
+  font-size: 50px;
+  font-weight: bold;
+  background-color: rgb(215, 251, 253);
+  border-radius: 20px 20px 0px 0px;
+  padding: 20px;
+}
+.card-body{
+  background-color: white;
+  border-radius: 20px;  
+  box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
+  padding-bottom: 20px;
+}
+.display{
+  box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
+  background-color: lightgray;
+  border-radius: 20px;  
+  text-align: center;
+  height: fit-content;
+  width: fit-content;
+  padding: 10px;
+}
+.float-container{
+  display: flex;
+}
+.space-between{
+  justify-content: space-evenly;
+}
+.mg-top{
+  margin-top: 5%;
+}
+.App {
+  text-align: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,16 +1,23 @@
-import logo from './logo.svg';
-import '../CSS/App.css';
-import axios from 'axios';
+import "../CSS/App.css";
+import axios from "axios";
+import Navbar from "./navbar";
 
 function Weather() {
-    const getAPI = () => {
-        axios.get("https://www.weatherapi.com/docs/#/key=eb1f641f11304bdfbcd184447242603/current.json").then((resp)=>{
-            return resp
-        })
-    }
+  const API_KEY = "";
+  const url = "" + API_KEY;
+  const getAPI = () => {
+    axios
+      .get(url)
+      .then((resp) => {
+        console.log(resp.json);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
-    <div>
-    {getAPI}
+    <div id="weather">
+      <Navbar />
     </div>
   );
 }
