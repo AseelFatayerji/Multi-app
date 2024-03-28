@@ -114,13 +114,35 @@ ul {
   height: fit-content;
 }
 .list-display{
-  padding-left: 50px;
   margin-top: -10px;
+}
+.list-display li{
+  padding: 10px;
+}
+.list-item{
+  background-color: transparent;
+  color: black;
 }
 .title {
   background-color: white;
   border-color: transparent;
   padding: 0px;
+}
+.edit{
+  background-color: white;
+  border: 8px;
+}
+.edit:hover {
+  color: greenyellow;
+  cursor: pointer;
+}
+.trash{
+  background-color: white;
+  border: 8px;
+}
+.trash:hover {
+  color: red;
+  cursor: pointer;
 }
 .inputs {
   padding: 20px;
@@ -175,11 +197,17 @@ ul {
   overflow-y: auto;
   gap: 40px;
 }
+.gap{
+  gap:10px
+}
 .mg-top {
   margin-top: 5%;
 }
 .padding-left {
   padding-left: 20px;
+}
+.padding-right {
+  padding-right: 10px;
 }
 .App {
   text-align: center;

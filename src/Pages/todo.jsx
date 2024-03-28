@@ -10,7 +10,7 @@ function Todo() {
   const [lists, Setlist] = useState(listhistroy)
   const count = "card"+lists.length
   const addCard = () => {
-    Setlist(lists.concat(<Card key={count}/>));
+    Setlist(lists.concat(<Card key={count} ids={count}/>));
     //localStorage.setItem("lists",JSON.stringify(lists))
   };
 
