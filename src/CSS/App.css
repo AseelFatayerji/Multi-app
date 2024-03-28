@@ -112,8 +112,7 @@ i{
   cursor: pointer;
 }
 .lists {
-  padding-top: 2%;
-  padding-left: 2%;
+  padding: 2%;
 }
 .list {
   padding: 20px;
