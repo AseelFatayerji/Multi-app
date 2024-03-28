@@ -1,8 +1,13 @@
 import "../CSS/App.css";
 import Navbar from "./navbar";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 
 function Calculator() {
+  const removeSpace =(val) =>{
+    if(val !== ""){
+      return val
+    }
+  }
   const calculate = () => {
     const history = document.getElementById("history");
     const item = document.createElement("li");
@@ -21,12 +26,12 @@ function Calculator() {
 
     for (let i = 0; i < op_str.length; i++) {
       if (
-        op_str[i] == "+" ||
-        op_str[i] == "-" ||
-        op_str[i] == "/" ||
-        op_str[i] == "*" ||
-        op_str[i] == "%" ||
-        op_str[i] == "="
+        op_str[i] === "+" ||
+        op_str[i] === "-" ||
+        op_str[i] === "/" ||
+        op_str[i] === "*" ||
+        op_str[i] === "%" ||
+        op_str[i] === "="
       ) {
         arr.push(nb);
         arr.push(op_str[i]);
@@ -35,25 +40,55 @@ function Calculator() {
         nb += op_str[i];
       }
     }
-    let ans = parseFloat(arr[0]);
-    for (let i = 0; i < arr.length - 1; i++) {
+    let ans = 0;
+    arr = arr.filter(removeSpace)
+    for (let i = 0; i < arr.length; i++) {
       switch (arr[i]) {
         case "+":
-          ans += parseFloat(arr[i + 1]);
+          i++;
+          ans += parseFloat(arr[i]);
           break;
         case "-":
-          ans -= parseFloat(arr[i + 1]);
+          i++;
+          ans -= parseFloat(arr[i]);
           break;
-        case "/":
-          ans /= parseFloat(arr[i + 1]);
+        case "/":          
+        console.log(arr[i])
+          i++;
+          console.log(arr[i])
+          if (arr[i] === "-") {
+            i++;
+            ans /= parseFloat(arr[i]);
+            ans *= -1;
+          } else {
+            ans /= parseFloat(arr[i]);
+          }
           break;
         case "*":
-          ans *= parseFloat(arr[i + 1]);
+          i++;
+          if (arr[i] === "-") {
+            i++;
+            ans *= parseFloat(arr[i]);
+            ans *= -1;
+          } else {
+            ans *= parseFloat(arr[i]);
+          }
           break;
         case "%":
-          ans %= parseFloat(arr[i + 1]);
+          i++;
+          if (arr[i] === "-") {
+            i++;
+
+            ans %= parseFloat(arr[i]);
+            ans *= -1;
+          } else {
+            ans %= parseFloat(arr[i]);
+          }
           break;
         case "=":
+          break;
+        default:
+          ans = parseFloat(arr[i]);
           break;
       }
     }
@@ -147,7 +182,7 @@ function Calculator() {
   return (
     <div className="Calculator">
       <Navbar />
-      <div className="float-container space-between mg-top">
+      <div className="float-container space-even mg-top">
         <div className="card history">
           <div className="card-body">
             <div className="card-header">History</div>

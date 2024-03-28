@@ -10,7 +10,7 @@ nav {
   gap: 20px;
 }
 a {
-  color: black;
+  color: rgb(141, 161, 187);
   border-radius: 10px;
   font-size: 26px;
   text-decoration: none;
@@ -18,7 +18,7 @@ a {
 }
 a:hover {
   color: white;
-  background-color: gray;
+  background-color: rgb(70, 122, 170);
 }
 input {
   background-color: darkgray;
@@ -45,6 +45,44 @@ input[type="button"]:hover{
 ul{
   list-style-type: none;
   font-size: 26px;
+  padding: 0;
+}
+.center{
+  position: relative;
+  padding: 20px;
+  
+}
+.current{
+  margin-bottom: 20px;
+}
+.header-img{
+  align-self: center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
+  padding-left: 27%;
+}
+.circle{  
+  border-radius: 100%;
+  background-color: darkcyan;
+  color: white;
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+  text-align: center;
+  padding: 10px 5px 5px 5px;
+  margin-bottom: -45px;
+  z-index: -1;
+}
+.weather-card{
+  background-color: darkcyan;
+  border-radius: 15px;
+  color: white;
+  font-size: 26px;
+  width: max-content;
+  height: fit-content;
+  text-align: center;
+  padding: 10px;
 }
 .card{
   border-radius: 20px;
@@ -75,8 +113,12 @@ ul{
 .float-container{
   display: flex;
 }
-.space-between{
+.space-even{
   justify-content: space-evenly;
+}
+.overflow{
+  overflow-y: auto;
+  gap:40px;
 }
 .mg-top{
   margin-top: 5%;
