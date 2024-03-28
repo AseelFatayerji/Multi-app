@@ -47,6 +47,10 @@ ul {
   font-size: 26px;
   padding: 0;
 }
+i{
+  align-content: center;
+  text-align: center;
+}
 .center {
   position: relative;
   padding: 20px;
@@ -95,8 +99,6 @@ ul {
   width: fit-content;
   height: fit-content;
   align-content: center;
-  position: fixed;
-  right: 5%;
   text-align: center;
 }
 .add {
@@ -110,7 +112,8 @@ ul {
   cursor: pointer;
 }
 .lists {
-  padding-top: 5%;
+  padding-top: 2%;
+  padding-left: 2%;
 }
 .list {
   padding: 20px;
@@ -131,18 +134,29 @@ ul {
   background-color: white;
   border-bottom:2px solid darkslateblue;
   padding: 0px;
+  width: 80%;
+}
+.check{
+  background-color: white;
+  border: 8px;
+  color:slategray
+}
+.check:hover {
+  color: rgb(47, 213, 255);
+  cursor: pointer;
 }
 .edit{
   background-color: white;
   border: 8px;
+  color:slategray
 }
 .edit:hover {
   color: greenyellow;
   cursor: pointer;
 }
 .trash{
-  background-color: white;
   border: 8px;
+  color:slategray
 }
 .trash:hover {
   color: red;
@@ -159,12 +173,14 @@ ul {
   width: 200px;
 }
 .list-header {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
   background-color: plum;
   border-radius: 20px 20px 0px 0px;
   padding: 20px;
   text-align: center;
+  align-items: center;
+  align-content: center;
 }
 .card-header {
   font-size: 50px;
@@ -189,6 +205,20 @@ ul {
   height: fit-content;
   width: fit-content;
   padding: 10px;
+}
+.counter{
+  border-radius: 15px;
+  font-size: 26px;
+  font-weight: bold;
+  width: 200px;
+  height: fit-content;
+  padding: 10px;
+}
+.acc{
+  background-color: rgb(130, 255, 80);
+}
+.rej{
+  background-color: coral;
 }
 .float-container {
   display: flex;

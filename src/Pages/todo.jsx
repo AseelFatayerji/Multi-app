@@ -28,10 +28,21 @@ function Todo() {
   return (
     <div className="Todo">
       <Navbar />
-      <div className=" lists ">
-        <div className="toolkit position fixed" onClick={addCard}>
-          <FontAwesomeIcon className="add" icon={faAdd} />
+      <div>
+        <div className="lists float-container space-between ">
+          <div className="float-container space-even gap">
+            <div className="counter acc">
+              Completed:{localStorage.getItem("acc")}
+            </div>
+            <div className="counter rej">
+              Canceled:{localStorage.getItem("rej")}
+            </div>
+          </div>
+          <div className="toolkit" onClick={addCard}>
+            <FontAwesomeIcon className="add" icon={faAdd} />
+          </div>
         </div>
+
         <div id="cards">
           {lists.map((list_item) => {
             return <div>{list_item}</div>;
