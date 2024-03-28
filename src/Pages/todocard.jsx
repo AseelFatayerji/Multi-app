@@ -8,10 +8,18 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 import Draggable, { DraggableCore } from "react-draggable";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function Card({ ids }) {
   const listhistroy = JSON.parse(localStorage.getItem("info") || "[]");
+  const updateItem = (old,newValue) => {
+    for (let i = 0; i < listhistroy.length; i++) {
+      if (listhistroy[i].info === old) {
+        listhistroy[i].info = newValue;        
+      }
+    }
+    localStorage.setItem("info", JSON.stringify(listhistroy));
+  };
   useEffect(() => {
     for (let i = 0; i < listhistroy.length; i++) {
       if (ids === listhistroy[i].id) {
@@ -28,6 +36,9 @@ function Card({ ids }) {
         input.disabled = true;
         input.value = val;
         input.id = document.getElementById(ids).children.length + "input" + ids;
+        input.onchange = (e) => {
+          updateItem(val,e.target.value);
+        };
         item.id = document.getElementById(ids).children.length + "item" + ids;
 
         const check = (
@@ -76,20 +87,21 @@ function Card({ ids }) {
     }
   });
   const deleteList = (id) => {
-    const updateHistory =  []
+    const updateHistory = [];
     const org = JSON.parse(localStorage.getItem("lists") || "[]");
-    for( let i = 0; i < org.length;i++){
-      if(org[i].props.ids !== id){
-        updateHistory.push(org[i])
+    for (let i = 0; i < org.length; i++) {
+      if (org[i].props.ids !== id) {
+        updateHistory.push(org[i]);
       }
     }
     localStorage.setItem("lists", JSON.stringify(updateHistory));
-    document.getElementById("list"+id).remove();
+    document.getElementById("list" + id).remove();
     let rej = JSON.parse(localStorage.getItem("rej") || 0);
     rej++;
     localStorage.setItem("rej", rej);
   };
   const removeDisable = (id) => {
+    const val = document.getElementById(id);
     document.getElementById(id).disabled = false;
   };
   const deleteItem = (id) => {
@@ -128,6 +140,10 @@ function Card({ ids }) {
     input.disabled = true;
     input.value = val;
     input.id = document.getElementById(ids).children.length + "input" + ids;
+    input.onchange = (e) => {
+      updateItem(val,e.target.value);
+      console.log(e.target.value);
+    };
     item.id = document.getElementById(ids).children.length + "" + ids;
 
     const check = (
