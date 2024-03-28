@@ -186,7 +186,7 @@ function Calculator() {
         <div className="card history">
           <div className="card-body">
             <div className="card-header">History</div>
-            <ul id="history"></ul>
+            <ul id="history" className="padding-left"></ul>
           </div>
         </div>
         <div className="display">

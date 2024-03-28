@@ -86,7 +86,7 @@ ul{
 }
 .card{
   border-radius: 20px;
-  padding: 20px;
+  width: max-content;
 }
 .card-header{
   font-size: 50px;
@@ -94,12 +94,14 @@ ul{
   background-color: rgb(215, 251, 253);
   border-radius: 20px 20px 0px 0px;
   padding: 20px;
+  text-align: center;
 }
 .card-body{
   background-color: white;
   border-radius: 20px;  
   box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
   padding-bottom: 20px;
+  width: 350px;
 }
 .display{
   box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
@@ -122,6 +124,9 @@ ul{
 }
 .mg-top{
   margin-top: 5%;
+}
+.padding-left{
+  padding-left: 20px;
 }
 .App {
   text-align: center;
