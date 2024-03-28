@@ -1,8 +1,8 @@
-body{
+body {
   background-color: rgb(239, 246, 250);
 }
-nav {  
-  box-shadow: 0px 5px 2px 0px rgba(0,0,0,0.5);
+nav {
+  box-shadow: 0px 5px 2px 0px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   background: white;
   display: flex;
@@ -27,42 +27,41 @@ input {
   font-size: 26px;
   padding: 5px;
 }
-input[type="text"]{
+input[type="text"] {
   height: 40px;
   margin-bottom: 10px;
   text-align: center;
 }
-input[type="button"]{  
+input[type="button"] {
   width: 50px;
-  height:50px;
+  height: 50px;
   margin: 5px;
 }
-input[type="button"]:hover{  
+input[type="button"]:hover {
   background-color: rgb(102, 101, 101);
   color: white;
   cursor: pointer;
 }
-ul{
+ul {
   list-style-type: none;
   font-size: 26px;
   padding: 0;
 }
-.center{
+.center {
   position: relative;
   padding: 20px;
-  
 }
-.current{
+.current {
   margin-bottom: 20px;
 }
-.header-img{
+.header-img {
   align-self: center;
   align-items: center;
   align-content: center;
   text-align: center;
   padding-left: 27%;
 }
-.circle{  
+.circle {
   border-radius: 100%;
   background-color: darkcyan;
   color: white;
@@ -74,7 +73,7 @@ ul{
   margin-bottom: -45px;
   z-index: -1;
 }
-.weather-card{
+.weather-card {
   background-color: darkcyan;
   border-radius: 15px;
   color: white;
@@ -84,11 +83,65 @@ ul{
   text-align: center;
   padding: 10px;
 }
-.card{
+.card {
   border-radius: 20px;
   width: max-content;
 }
-.card-header{
+.toolkit {
+  width: fit-content;
+  height: fit-content;
+  align-content: center;
+  position: fixed;
+  right: 5%;
+  text-align: center;
+}
+.add {
+  border-radius: 10px;
+  background-color: plum;
+  font-size: 20px;
+  padding: 10px;
+}
+.add:hover {
+  filter: brightness(70%);
+  cursor: pointer;
+}
+.lists {
+  padding-top: 5%;
+}
+.list {
+  padding: 20px;
+  width: fit-content;
+  height: fit-content;
+}
+.list-display{
+  padding-left: 50px;
+  margin-top: -10px;
+}
+.title {
+  background-color: white;
+  border-color: transparent;
+  padding: 0px;
+}
+.inputs {
+  padding: 20px;
+  align-items: center;
+  align-content: center;
+}
+.list-item {
+  background-color: white;
+  border-color: transparent;
+  margin-left: 10px;
+  width: 80%;
+}
+.list-header {
+  font-size: 50px;
+  font-weight: bold;
+  background-color: rgb(203, 73, 255);
+  border-radius: 20px 20px 0px 0px;
+  padding: 20px;
+  text-align: center;
+}
+.card-header {
   font-size: 50px;
   font-weight: bold;
   background-color: rgb(215, 251, 253);
@@ -96,36 +149,36 @@ ul{
   padding: 20px;
   text-align: center;
 }
-.card-body{
+.card-body {
   background-color: white;
-  border-radius: 20px;  
-  box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
+  border-radius: 20px;
+  box-shadow: 15px 14px 2px -7px rgba(0, 0, 0, 0.6);
   padding-bottom: 20px;
   width: 350px;
 }
-.display{
-  box-shadow: 15px 14px 2px -7px rgba(0,0,0,0.6);
+.display {
+  box-shadow: 15px 14px 2px -7px rgba(0, 0, 0, 0.6);
   background-color: lightgray;
-  border-radius: 20px;  
+  border-radius: 20px;
   text-align: center;
   height: fit-content;
   width: fit-content;
   padding: 10px;
 }
-.float-container{
+.float-container {
   display: flex;
 }
-.space-even{
+.space-even {
   justify-content: space-evenly;
 }
-.overflow{
+.overflow {
   overflow-y: auto;
-  gap:40px;
+  gap: 40px;
 }
-.mg-top{
+.mg-top {
   margin-top: 5%;
 }
-.padding-left{
+.padding-left {
   padding-left: 20px;
 }
 .App {
