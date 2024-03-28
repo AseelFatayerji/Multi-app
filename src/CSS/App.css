@@ -62,15 +62,15 @@ ul {
   padding-left: 27%;
 }
 .circle {
-  border-radius: 100%;
+  border-radius: 100% 100% 20% 20%;
   background-color: darkcyan;
   color: white;
   width: 100px;
-  height: 100px;
+  height: fit-content;
   font-size: 50px;
   text-align: center;
-  padding: 10px 5px 5px 5px;
-  margin-bottom: -45px;
+  padding: 5px 5px 0px 5px;
+  margin-bottom: -5px;
   z-index: -1;
 }
 .weather-card {
@@ -82,6 +82,10 @@ ul {
   height: fit-content;
   text-align: center;
   padding: 10px;
+}
+.days{
+  max-height: 400px;
+    overflow-x: scroll;
 }
 .card {
   border-radius: 20px;
@@ -125,7 +129,7 @@ ul {
 }
 .title {
   background-color: white;
-  border-color: transparent;
+  border-bottom:2px solid darkslateblue;
   padding: 0px;
 }
 .edit{
@@ -150,15 +154,14 @@ ul {
   align-content: center;
 }
 .list-item {
+  border-bottom:2px solid darkslateblue;
   background-color: white;
-  border-color: transparent;
-  margin-left: 10px;
-  width: 80%;
+  width: 200px;
 }
 .list-header {
   font-size: 50px;
   font-weight: bold;
-  background-color: rgb(203, 73, 255);
+  background-color: plum;
   border-radius: 20px 20px 0px 0px;
   padding: 20px;
   text-align: center;
@@ -193,8 +196,10 @@ ul {
 .space-even {
   justify-content: space-evenly;
 }
+.space-between {
+  justify-content: space-between;
+}
 .overflow {
-  overflow-y: auto;
   gap: 40px;
 }
 .gap{

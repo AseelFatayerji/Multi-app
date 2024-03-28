@@ -143,7 +143,7 @@ function Weather() {
           </div>
         </div>
       </div>
-      <div id="days" className="float-container space-even overflow">
+      <div id="days" className="days float-container space-even overflow">
         <div>
           <div className="header-img">
             <div className="circle">

@@ -1,14 +1,60 @@
 import "../CSS/App.css";
-import { createRoot } from 'react-dom/client';
+import { createRoot } from "react-dom/client";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faAdd,
-  faPencil,
-  faTrashCan,
-} from "@fortawesome/free-solid-svg-icons";
+import { faAdd, faPencil, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Draggable, { DraggableCore } from "react-draggable";
+import { useEffect } from "react";
 
-function Card({ids}) {
+function Card({ ids }) {
+  const listhistroy = JSON.parse(localStorage.getItem("info") || "[]");
+  useEffect(() => {
+    for (let i = 0; i < listhistroy.length; i++) {
+      if (ids === listhistroy[i].id) {
+
+        document.getElementById("title" + ids).value = listhistroy[i].head;
+        const val = listhistroy[i].info;
+        const item = document.createElement("li");
+        const input = document.createElement("input");
+        const button = document.createElement("i");
+        const button2 = document.createElement("i");
+
+        input.className = "list-item";
+        input.type = "text";
+        input.disabled = true;
+        input.value = val;
+        input.id = document.getElementById(ids).children.length + "input" + ids;
+        item.id = document.getElementById(ids).children.length + "item" + ids;
+
+        const edit = (
+          <FontAwesomeIcon
+            icon={faPencil}
+            className="edit"
+            onClick={() => {
+              removeDisable(input.id);
+            }}
+          />
+        );
+        const trash = (
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="trash"
+            onClick={() => {
+              deleteItem(item.id);
+            }}
+          />
+        );
+        const editbtn = createRoot(button);
+        editbtn.render(edit);
+        const trashbtn = createRoot(button2);
+        trashbtn.render(trash);
+        item.className = "float-container space-even gap";
+        item.appendChild(input);
+        item.appendChild(button);
+        item.appendChild(button2);
+        document.getElementById(ids).appendChild(item);
+      }
+    }
+  });
   const removeDisable = (id) => {
     document.getElementById(id).disabled = false;
   };
@@ -16,7 +62,7 @@ function Card({ids}) {
     document.getElementById(id).remove();
   };
   const addItem = () => {
-    const val = document.getElementById("item"+ids).value;
+    const val = document.getElementById("item" + ids).value;
     const item = document.createElement("li");
     const input = document.createElement("input");
     const button = document.createElement("i");
@@ -26,8 +72,8 @@ function Card({ids}) {
     input.type = "text";
     input.disabled = true;
     input.value = val;
-    input.id = document.getElementById(ids).children.length + "input" +ids;
-    item.id = document.getElementById(ids).children.length+""+ids;
+    input.id = document.getElementById(ids).children.length + "input" + ids;
+    item.id = document.getElementById(ids).children.length + "" + ids;
 
     const edit = (
       <FontAwesomeIcon
@@ -47,15 +93,19 @@ function Card({ids}) {
         }}
       />
     );
-    const editbtn = createRoot(button)
-    editbtn.render(edit)
-    const trashbtn = createRoot(button2)
-    trashbtn.render(trash)
+    const editbtn = createRoot(button);
+    editbtn.render(edit);
+    const trashbtn = createRoot(button2);
+    trashbtn.render(trash);
     item.className = "float-container space-even gap";
     item.appendChild(input);
     item.appendChild(button);
     item.appendChild(button2);
     document.getElementById(ids).appendChild(item);
+    const title = document.getElementById("title" + ids).value;
+    const obj = { id: ids, info: val, head: title };
+    listhistroy.push(obj);
+    localStorage.setItem("info", JSON.stringify(listhistroy));
   };
   return (
     <div className="todo-card">
@@ -63,11 +113,11 @@ function Card({ids}) {
         <div className="list">
           <div className="card-body">
             <div className="list-header">
-              <input type="text" className="title" />
+              <input type="text" id={"title" + ids} className="title" placeholder="List Title"/>
             </div>
-            <div className="inputs float-container">
-              <input type="text" id={"item"+ids} className="list-item" />
-              <FontAwesomeIcon className="add" icon={faAdd} onClick={addItem} />
+            <div className="inputs float-container space-between gap">
+              <div><input type="text" id={"item" + ids} className="list-item" placeholder="List Item"/></div>
+              <div><FontAwesomeIcon className="add" icon={faAdd} onClick={addItem} /></div>
             </div>
             <div>
               <ul id={ids} className="list-display"></ul>
