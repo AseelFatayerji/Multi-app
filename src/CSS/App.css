@@ -8,11 +8,12 @@ nav {
   display: flex;
   justify-content: end;
   gap: 20px;
+  padding: 5px;
 }
 a {
   color: rgb(141, 161, 187);
   border-radius: 10px;
-  font-size: 26px;
+  font-size: 20px;
   text-decoration: none;
   padding: 10px;
 }
@@ -59,15 +60,14 @@ i{
   margin-bottom: 20px;
 }
 .header-img {
-  align-self: center;
+  justify-self: center;
   align-items: center;
   align-content: center;
   text-align: center;
-  padding-left: 27%;
 }
 .circle {
   border-radius: 100% 100% 20% 20%;
-  background-color: darkcyan;
+  background-color: rgb(0, 185, 185);
   color: white;
   width: 100px;
   height: fit-content;
@@ -78,14 +78,14 @@ i{
   z-index: -1;
 }
 .weather-card {
-  background-color: darkcyan;
+  background-color: rgb(0, 185, 185);
   border-radius: 15px;
   color: white;
   font-size: 26px;
-  width: max-content;
+  width: 250px;
   height: fit-content;
-  text-align: center;
   padding: 10px;
+  text-align: center;
 }
 .days{
   max-height: 400px;
@@ -182,7 +182,7 @@ i{
   align-content: center;
 }
 .card-header {
-  font-size: 50px;
+  font-size: 30px;
   font-weight: bold;
   background-color: rgb(215, 251, 253);
   border-radius: 20px 20px 0px 0px;

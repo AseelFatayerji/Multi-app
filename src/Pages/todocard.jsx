@@ -9,8 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Draggable, { DraggableCore } from "react-draggable";
 import { useEffect, useState } from "react";
+import ListCrad from "./listcard";
 
 function Card({ ids }) {
+  const [cards,SetCards] = useState([])
   const listhistroy = JSON.parse(localStorage.getItem("info") || "[]");
   const updateItem = (old,newValue) => {
     for (let i = 0; i < listhistroy.length; i++) {
@@ -20,72 +22,7 @@ function Card({ ids }) {
     }
     localStorage.setItem("info", JSON.stringify(listhistroy));
   };
-  useEffect(() => {
-    for (let i = 0; i < listhistroy.length; i++) {
-      if (ids === listhistroy[i].id) {
-        document.getElementById("title" + ids).value = listhistroy[i].head;
-        const val = listhistroy[i].info;
-        const item = document.createElement("li");
-        const input = document.createElement("input");
-        const button = document.createElement("i");
-        const button2 = document.createElement("i");
-        const button3 = document.createElement("i");
-
-        input.className = "list-item";
-        input.type = "text";
-        input.disabled = true;
-        input.value = val;
-        input.id = document.getElementById(ids).children.length + "input" + ids;
-        input.onchange = (e) => {
-          updateItem(val,e.target.value);
-        };
-        item.id = document.getElementById(ids).children.length + "item" + ids;
-
-        const check = (
-          <FontAwesomeIcon
-            icon={faCircleCheck}
-            className="check"
-            onClick={() => {
-              updateHistory(input.id);
-              completeItem(item.id);
-            }}
-          />
-        );
-        const edit = (
-          <FontAwesomeIcon
-            icon={faPencil}
-            className="edit"
-            onClick={() => {
-              removeDisable(input.id);
-            }}
-          />
-        );
-        const trash = (
-          <FontAwesomeIcon
-            icon={faTrashCan}
-            className="trash"
-            onClick={() => {
-              updateHistory(input.id);
-              deleteItem(item.id);
-            }}
-          />
-        );
-        const editbtn = createRoot(button);
-        editbtn.render(edit);
-        const trashbtn = createRoot(button2);
-        trashbtn.render(trash);
-        const checkbtn = createRoot(button3);
-        checkbtn.render(check);
-
-        item.className = "float-container space-even gap";
-        item.appendChild(button3);
-        item.appendChild(input);
-        item.appendChild(button);
-        item.appendChild(button2);
-        document.getElementById(ids).appendChild(item);
-      }
-    }
-  });
+  
   const deleteList = (id) => {
     const updateHistory = [];
     const org = JSON.parse(localStorage.getItem("lists") || "[]");
@@ -125,34 +62,55 @@ function Card({ ids }) {
       }
     }
     localStorage.setItem("info", JSON.stringify(updatelisthistroy));
-    console.log(updatelisthistroy);
   };
+  const displayHistory = () =>{
+    const arr =[];
+    for (let i = 0; i < listhistroy.length; i++) {
+      if (ids === listhistroy[i].id) {
+        const check = (
+          <FontAwesomeIcon
+            icon={faCircleCheck}
+            className="check"
+            onClick={() => {
+              console.log("checked")
+            }}
+          />
+        );
+        const edit = (
+          <FontAwesomeIcon
+            icon={faPencil}
+            className="edit"
+            onClick={() => {
+            }}
+          />
+        );
+        const trash = (
+          <FontAwesomeIcon
+            icon={faTrashCan}
+            className="trash"
+            onClick={() => {
+            }}
+          />
+        );
+        const card = <ListCrad ids={ids} header={listhistroy[i].head} items={listhistroy[i].info} check={check} trash={trash} edit={edit}/>
+        arr.push(card)
+      }
+    }
+    SetCards(arr)
+  }
+  useEffect(() => {
+      displayHistory()
+  });
   const addItem = () => {
+    const arr = []
     const val = document.getElementById("item" + ids).value;
-    const item = document.createElement("li");
-    const input = document.createElement("input");
-    const button = document.createElement("i");
-    const button2 = document.createElement("i");
-    const button3 = document.createElement("i");
-
-    input.className = "list-item";
-    input.type = "text";
-    input.disabled = true;
-    input.value = val;
-    input.id = document.getElementById(ids).children.length + "input" + ids;
-    input.onchange = (e) => {
-      updateItem(val,e.target.value);
-      console.log(e.target.value);
-    };
-    item.id = document.getElementById(ids).children.length + "" + ids;
-
+    const inputID = document.getElementById(ids).children.length + "input" + ids;
+    const itemID = document.getElementById(ids).children.length + "" + ids;
     const check = (
       <FontAwesomeIcon
         icon={faCircleCheck}
         className="check"
         onClick={() => {
-          updateHistory(input.id);
-          completeItem(item.id);
         }}
       />
     );
@@ -161,7 +119,6 @@ function Card({ ids }) {
         icon={faPencil}
         className="edit"
         onClick={() => {
-          removeDisable(input.id);
         }}
       />
     );
@@ -170,76 +127,18 @@ function Card({ ids }) {
         icon={faTrashCan}
         className="trash"
         onClick={() => {
-          updateHistory(input.id);
-          deleteItem(item.id);
         }}
       />
     );
-    const editbtn = createRoot(button);
-    editbtn.render(edit);
-    const trashbtn = createRoot(button2);
-    trashbtn.render(trash);
-    const checkbtn = createRoot(button3);
-    checkbtn.render(check);
-
-    item.className = "float-container space-even gap";
-    item.appendChild(button3);
-    item.appendChild(input);
-    item.appendChild(button);
-    item.appendChild(button2);
-    document.getElementById(ids).appendChild(item);
-    const title = document.getElementById("title" + ids).value;
-    const obj = { id: ids, info: val, head: title };
-    listhistroy.push(obj);
-    localStorage.setItem("info", JSON.stringify(listhistroy));
+    const card = <ListCrad ids={ids} header={val} items={[]} check={check} trash={trash} edit={edit}/>
+    arr.push(card)
+    SetCards(cards.concat(arr))
   };
   return (
     <div className="todo-card">
-      <Draggable>
-        <div className="list" id={"list" + ids}>
-          <div className="card-body">
-            <div className="list-header float-container space-even gap">
-              <div>
-                <input
-                  type="text"
-                  id={"title" + ids}
-                  className="title"
-                  placeholder="List Title"
-                />
-              </div>
-              <div>
-                <FontAwesomeIcon
-                  icon={faTrashCan}
-                  className="trash"
-                  onClick={() => {
-                    deleteList(ids);
-                  }}
-                />
-              </div>
-            </div>
-            <div className="inputs float-container space-between gap">
-              <div>
-                <input
-                  type="text"
-                  id={"item" + ids}
-                  className="list-item"
-                  placeholder="List Item"
-                />
-              </div>
-              <div>
-                <FontAwesomeIcon
-                  className="add"
-                  icon={faAdd}
-                  onClick={addItem}
-                />
-              </div>
-            </div>
-            <div>
-              <ul id={ids} className="list-display"></ul>
-            </div>
-          </div>
-        </div>
-      </Draggable>
+      {cards.map((item)=>{
+        return item
+      })}
     </div>
   );
 }

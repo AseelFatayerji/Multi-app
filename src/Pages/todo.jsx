@@ -21,7 +21,6 @@ function Todo() {
     const item = <Card ids={count} />;
     Setlist(lists.concat(item));
     listhistroy.push(item);
-    console.log(JSON.stringify(listhistroy));
     localStorage.setItem("lists", JSON.stringify(listhistroy));
   };
 
