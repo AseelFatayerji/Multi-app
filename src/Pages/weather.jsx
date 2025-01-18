@@ -22,7 +22,7 @@ function Weather() {
     { key: "0", icon: faSun, title: "Clear sky" },
     { key: "1", icon: faCloudSun, title: "Mainly clear " },
     { key: "2", icon: faCloudSun, title: "Partly cloudy" },
-    { key: "3", icon: faCloudSun, title: "Overcast" },
+    { key: "3", icon: faCloud, title: "Overcast" },
     { key: "45", icon: faSmog, title: "Fog" },
     { key: "48", icon: faSmog, title: "Depositing rime fog" },
     { key: "51", icon: faCloudSunRain, title: "Light drizzle" },
@@ -46,16 +46,6 @@ function Weather() {
     { key: "96", icon: faCloudBolt, title: "Thunderstorm with slight hail" },
     { key: "97", icon: faCloudBolt, title: "Thunderstorm with heavy hail" },
   ];
-
-  const [dailyIcon, SetdailyIcons] = useState([
-    { id: 0, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 1, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 2, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 3, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 4, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 5, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-    { id: 6, icon: <FontAwesomeIcon id="img" icon={faCloud} /> },
-  ]);
   const [todayCard, SetToday] = useState();
   const [weekCard, SetWeek] = useState([]);
   const url =
