@@ -7,7 +7,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 function App() {
   return (
     <BrowserRouter>
-    <Routes>
+     <Routes future={{ v7_relativeSplatPath: true }}>
       <Route path='/' element={<Weather/>}/>
       <Route path='/Todo' element={<Todo/>}/>
       <Route path='/Calculator' element={<Calculator/>}/>
