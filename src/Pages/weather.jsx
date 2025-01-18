@@ -2,7 +2,7 @@ import "../CSS/App.css";
 import axios from "axios";
 import Navbar from "./navbar";
 import { useEffect, useState } from "react";
-import dateFormat, { masks } from "dateformat";
+import dateFormat from "dateformat";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloud,
