@@ -2,16 +2,15 @@ import '../CSS/App.css';
 import Weather from './weather';
 import Todo from './todo';
 import Calculator from './calculater';
-import NotFound from './notfound';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 function App() {
   return (
     <BrowserRouter>
-     <Routes future={{ v7_relativeSplatPath: true }}>
-      <Route path='*' element={<Weather/>}/>
-      <Route path='/Todo' element={<Todo/>}/>
-      <Route path='/Calculator' element={<Calculator/>}/>
+     <Routes>
+      <Route path='/' element={<Weather/>}/>
+      <Route path='/todo' element={<Todo/>}/>
+      <Route path='/calculator' element={<Calculator/>}/>
     </Routes>
     </BrowserRouter>
   );
