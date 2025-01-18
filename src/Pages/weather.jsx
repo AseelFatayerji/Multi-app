@@ -115,10 +115,12 @@ function Weather() {
       <div id="current" className="current float-container space-even">
         {todayCard}
       </div>
-      <div id="days" className="days float-container space-even overflow">
-        {weekCard.map((weekWeather) => {
-          return <div>{weekWeather}</div>;
-        })}
+      <div className="carousel">
+        <div id="days" className="carousel-wrapper">
+          {weekCard.map((weekWeather) => {
+            return <div>{weekWeather}</div>;
+          })}
+        </div>
       </div>
     </div>
   );

@@ -12,7 +12,6 @@ function App() {
       <Route path='*' element={<Weather/>}/>
       <Route path='/Todo' element={<Todo/>}/>
       <Route path='/Calculator' element={<Calculator/>}/>
-      {/* <Route path="*" element={<NotFound />} /> */}
     </Routes>
     </BrowserRouter>
   );

@@ -9,6 +9,7 @@ nav {
   justify-content: end;
   gap: 20px;
   padding: 5px;
+  margin-bottom: 20px;
 }
 a {
   color: rgb(141, 161, 187);
@@ -45,16 +46,16 @@ input[type="button"]:hover {
 }
 ul {
   list-style-type: none;
-  font-size: 26px;
+  font-size: 20px;
   padding: 0;
+  margin: 0;
 }
-i{
+i {
   align-content: center;
   text-align: center;
 }
 .center {
   position: relative;
-  padding: 20px;
 }
 .current {
   margin-bottom: 20px;
@@ -74,23 +75,20 @@ i{
   font-size: 50px;
   text-align: center;
   padding: 5px 5px 0px 5px;
-  margin-bottom: -5px;
+  margin-bottom: -15px;
   z-index: -1;
 }
 .weather-card {
   background-color: rgb(0, 185, 185);
   border-radius: 15px;
   color: white;
-  font-size: 26px;
-  width: 250px;
-  height: fit-content;
-  padding: 10px;
+  font-size: 25px;
+  width: 200px;
+  height: 180px;
   text-align: center;
+  padding: 5px;
 }
-.days{
-  max-height: 400px;
-    overflow-x: scroll;
-}
+
 .card {
   border-radius: 20px;
   width: max-content;
@@ -119,43 +117,43 @@ i{
   width: fit-content;
   height: fit-content;
 }
-.list-display{
+.list-display {
   margin-top: -10px;
 }
-.list-display li{
+.list-display li {
   padding: 10px;
 }
-.list-item{
+.list-item {
   background-color: transparent;
   color: black;
 }
 .title {
   background-color: white;
-  border-bottom:2px solid darkslateblue;
+  border-bottom: 2px solid darkslateblue;
   padding: 0px;
   width: 80%;
 }
-.check{
+.check {
   background-color: white;
   border: 8px;
-  color:slategray
+  color: slategray;
 }
 .check:hover {
   color: rgb(47, 213, 255);
   cursor: pointer;
 }
-.edit{
+.edit {
   background-color: white;
   border: 8px;
-  color:slategray
+  color: slategray;
 }
 .edit:hover {
   color: greenyellow;
   cursor: pointer;
 }
-.trash{
+.trash {
   border: 8px;
-  color:slategray
+  color: slategray;
 }
 .trash:hover {
   color: red;
@@ -167,7 +165,7 @@ i{
   align-content: center;
 }
 .list-item {
-  border-bottom:2px solid darkslateblue;
+  border-bottom: 2px solid darkslateblue;
   background-color: white;
   width: 200px;
 }
@@ -205,7 +203,7 @@ i{
   width: fit-content;
   padding: 10px;
 }
-.counter{
+.counter {
   border-radius: 15px;
   font-size: 26px;
   font-weight: bold;
@@ -213,10 +211,10 @@ i{
   height: fit-content;
   padding: 10px;
 }
-.acc{
+.acc {
   background-color: rgb(130, 255, 80);
 }
-.rej{
+.rej {
   background-color: coral;
 }
 .float-container {
@@ -231,8 +229,8 @@ i{
 .overflow {
   gap: 40px;
 }
-.gap{
-  gap:10px
+.gap {
+  gap: 10px;
 }
 .mg-top {
   margin-top: 5%;
@@ -245,6 +243,28 @@ i{
 }
 .App {
   text-align: center;
+}
+.carousel {
+  width: 100%; 
+  overflow: hidden; 
+  position: relative; 
+}
+.carousel-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  animation: slide 10s infinite;
+}
+@keyframes slide {
+  0% {
+    transform: translateX(0); /* Start at the first image */
+  }
+  50% {
+    transform: translateX(-20%); /* Move to the second image */
+  }
+  100% {
+    transform: translateX(0); /* Loop back to the first image */
+  }
 }
 
 @media (prefers-reduced-motion: no-preference) {
