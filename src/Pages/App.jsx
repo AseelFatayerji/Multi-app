@@ -6,7 +6,7 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/Multi-app">
      <Routes>
       <Route path='/' element={<Weather/>}/>
       <Route path='/todo' element={<Todo/>}/>
