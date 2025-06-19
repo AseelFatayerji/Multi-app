@@ -9,7 +9,7 @@ import {
 
 function Navbar() {
   return (
-    <div className=" fixed shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-b-lg backdrop-blur-sm bg-white/30 flex justify-end gap-10 p-5">
+    <div className=" fixed shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-r-lg backdrop-blur-sm bg-white/30 flex justify-end gap-10 p-5">
       <header className="">
         <nav>
           <Link to="/">
