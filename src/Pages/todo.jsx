@@ -28,7 +28,7 @@ function Todo() {
     if (localStorage.getItem("rej") == null) {
       localStorage.setItem("rej", 0);
     }
-  }, []);
+  }, [listhistory, lists]);
   const Show = () => {
     SetVisible("card");
   };

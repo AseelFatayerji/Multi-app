@@ -20,7 +20,7 @@ function Card({ ids, titles }) {
       arr.push(item);
     }
     SetTasks(tasks.concat(arr));
-  }, []);
+  }, [listhistory, tasks]);
   const addTask = () => {
     const count = "item" + tasks.length;
     const items = <Item ids={count} item={task} key={count} />;

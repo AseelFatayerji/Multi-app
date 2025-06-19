@@ -102,6 +102,7 @@ function Calculator() {
       operation.value += val;
     }
   };
+  // eslint-disable-next-line 
   const buttons = () => {
     const ops = ["AC", "%", "C", "/", "*", "-", "+", "00", "0", ".", "="];
     const nbs = [7, 8, 9, 4, 5, 6, 1, 2, 3];
@@ -178,7 +179,7 @@ function Calculator() {
       item.innerText = hist[i];
       document.getElementById("history").appendChild(item);
     }
-  }, []);
+  }, [buttons]);
   return (
     <div className="Calculator">
       <Navbar />
