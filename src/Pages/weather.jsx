@@ -1,7 +1,7 @@
 import axios from "axios";
 import dateFormat from "dateformat";
 import Navbar from "./navbar";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloud,
@@ -39,10 +39,10 @@ function Weather() {
   const [day, setDay] = useState(0);
   const [hrs, setHrs] = useState([]);
 
-  const [time, setTime] = useState(new Date());
+  const [time] = useState(new Date());
   const [animate, setAnimate] = useState("");
   const [bg, setBg] = useState("bg-gray-600");
-  const weather_icons = [
+  const weather_icons = useMemo(() => [
     {
       key: "clear-day",
       icon: faSun,
@@ -138,7 +138,41 @@ function Weather() {
       title: "float",
       bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
     },
-  ];
+  ], []);
+
+  const setDayDate = useCallback(
+    (data, selectedDay) => {
+      const chart = data[selectedDay].hours;
+      const hourlyChartData = chart.map((hour) => ({
+        time: hour.datetime.split(":").slice(0, 2).join(":"),
+        temp: hour.temp,
+      }));
+      setHrs(hourlyChartData);
+      setAnimate(
+        weather_icons.find((item) => item.key === data[selectedDay].icon)
+          ?.title || ""
+      );
+      setIcon(
+        weather_icons.find((item) => item.key === data[selectedDay].icon)
+          ?.icon || faCloud
+      );
+      setBg(
+        weather_icons.find((item) => item.key === data[selectedDay].icon)?.bg ||
+          "bg-gray-600"
+      );
+      setWind(data[selectedDay].windspeed);
+      setHumidity(data[selectedDay].humidity);
+      setPrecip(data[selectedDay].precip);
+      setTemp(data[selectedDay].temp);
+      setDate(dateFormat(data[selectedDay].datetime, "d mmmm dddd"));
+    },
+    [ weather_icons]
+  );
+  const formattedTime = time.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   useEffect(() => {
     const url =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lebanon?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cprecip%2Cwindspeed%2Cicon&key=2FNMHGKU7AR2D7X8HQDFE2KDM&contentType=json";
@@ -151,38 +185,7 @@ function Weather() {
         setDayDate(weekData, day);
       })
       .catch(console.error);
-  }, []);
-
-  const setDayDate = (data, selectedDay) => {
-    const chart = data[selectedDay].hours;
-    const hourlyChartData = chart.map((hour) => ({
-      time: hour.datetime.split(":").slice(0, 2).join(":"),
-      temp: hour.temp,
-    }));
-    setHrs(hourlyChartData);
-    setAnimate(
-      weather_icons.find((item) => item.key === data[selectedDay].icon)
-        ?.title || ""
-    );
-    setIcon(
-      weather_icons.find((item) => item.key === data[selectedDay].icon)?.icon ||
-        faCloud
-    );
-    setBg(
-      weather_icons.find((item) => item.key === data[selectedDay].icon)?.bg ||
-        "bg-gray-600"
-    );
-    setWind(data[selectedDay].windspeed);
-    setHumidity(data[selectedDay].humidity);
-    setPrecip(data[selectedDay].precip);
-    setTemp(data[selectedDay].temp);
-    setDate(dateFormat(data[selectedDay].datetime, "d mmmm dddd"));
-  };
-  const formattedTime = time.toLocaleTimeString([], {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
+  }, [day, setDayDate]);
   return (
     <div
       className={`text-white justify-center items-center w-screen min-h-screen ${bg}`}

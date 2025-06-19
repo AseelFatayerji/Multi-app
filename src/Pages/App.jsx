@@ -1,6 +1,6 @@
 import '../CSS/App.css';
 import Weather from './weather';
-import Todo from './todo';
+import Todo from './todo-list';
 import Calculator from './calculater';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
