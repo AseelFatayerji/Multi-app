@@ -137,47 +137,40 @@ function Weather() {
     },
   ];
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
+    const url = "https://weather.visualcrossing.com/...";
 
-    const url =
-      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lebanon?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cprecip%2Cicon&key=2FNMHGKU7AR2D7X8HQDFE2KDM&contentType=json";
+    axios
+      .get(url)
+      .then((resp) => {
+        const weekData = resp.data.days.slice(0, 7);
+        setWeek(weekData);
+        setDayDate(weekData, day);
+      })
+      .catch(console.error);
+  }, []); 
 
-    const getAPI = () => {
-      axios
-        .get(url)
-        .then((resp) => {
-          const chart = resp.data.days[day].hours;
-          const hourlyChartData = chart.map((hour) => ({
-            time: hour.datetime.split(":").slice(0, 2).join(":"),
-            temp: hour.temp,
-          }));
-          setHrs(hourlyChartData);
-          setWeek(resp.data.days.slice(0, 7));
-          setAnimate(
-            weather_icons.find((item) => item.key === resp.data.days[day].icon)
-              .title
-          );
-          setIcon(
-            weather_icons.find((item) => item.key === resp.data.days[day].icon)
-              .icon
-          );
-          setBg(
-            weather_icons.find((item) => item.key === resp.data.days[day].icon)
-              .bg
-          );
-          setTemp(resp.data.days[day].temp);
-
-          setDate(dateFormat(resp.data.days[day].datetime, "d mmmm dddd"));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    };
-    getAPI();
-    return () => clearInterval(interval);
-  }, [day, time,week]);
+  const setDayDate = (data, selectedDay) => {
+    const chart = data[selectedDay].hours;
+    const hourlyChartData = chart.map((hour) => ({
+      time: hour.datetime.split(":").slice(0, 2).join(":"),
+      temp: hour.temp,
+    }));
+    setHrs(hourlyChartData);
+    setAnimate(
+      weather_icons.find((item) => item.key === data[selectedDay].icon)
+        ?.title || ""
+    );
+    setIcon(
+      weather_icons.find((item) => item.key === data[selectedDay].icon)?.icon ||
+        faCloud
+    );
+    setBg(
+      weather_icons.find((item) => item.key === data[selectedDay].icon)?.bg ||
+        "bg-gray-600"
+    );
+    setTemp(data[selectedDay].temp);
+    setDate(dateFormat(data[selectedDay].datetime, "d mmmm dddd"));
+  };
   const formattedTime = time.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
@@ -191,13 +184,14 @@ function Weather() {
       <div className={`px-32 flex justify-between `}>
         <div className="py-10">
           <div className="mt-20 mb-5 text-l flex justify-evenly gap-5">
-            {week.map((day) => {
+            {week.map((day, index) => {
               return (
                 <div
                   className="flex flex-col items-center"
                   key={day.datetime}
                   onClick={() => {
-                    setDay(week.indexOf(day));
+                    setDay(index);
+                    setDayDate(week, index);
                   }}
                 >
                   <div className="flex flex-col gap-y-2 items-center w-20 bg-white/40 rounded-full p-5 cursor-pointer hover:bg-white/65 transition-all duration-300">

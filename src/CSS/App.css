@@ -273,18 +273,32 @@ i {
   animation: spin 10s linear infinite;
 }
 .float {
-  -webkit-animation: MoveUpDown 10s linear infinite;
-  -moz-animation: MoveUpDown 10s linear infinite;
-  animation: MoveUpDown 1s linear infinite;
+  -webkit-animation: MoveUpDown 5s linear infinite;
+  -moz-animation: MoveUpDown 5s linear infinite;
+  animation: MoveUpDown 5s linear infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease forwards;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes MoveUpDown {
   0%,
   100% {
-    bottom: 0;
+    -webkit-transform: translatey(0px);
   }
   50% {
-    bottom: 100px;
+    -webkit-transform: translatey(-30px);
   }
 }
 @-moz-keyframes spin {
