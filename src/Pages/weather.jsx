@@ -1,6 +1,6 @@
 import axios from "axios";
 import dateFormat from "dateformat";
-import React from "react";
+import Navbar from "./navbar";
 import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -10,10 +10,12 @@ import {
   faCloudRain,
   faCloudShowersHeavy,
   faCloudSun,
+  faDroplet,
   faMoon,
   faSmog,
   faSnowflake,
   faSun,
+  faWind,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   AreaChart,
@@ -26,15 +28,16 @@ import {
   LabelList,
 } from "recharts";
 
-import Navbar from "./navbar";
-
 function Weather() {
   const [icon, setIcon] = useState("");
   const [temp, setTemp] = useState("");
+  const [wind, setWind] = useState("");
+  const [humidity, setHumidity] = useState("");
+  const [precip, setPrecip] = useState("");
+  const [week, setWeek] = useState([]);
   const [date, setDate] = useState("");
   const [day, setDay] = useState(0);
   const [hrs, setHrs] = useState([]);
-  const [week, setWeek] = useState([]);
 
   const [time, setTime] = useState(new Date());
   const [animate, setAnimate] = useState("");
@@ -137,7 +140,8 @@ function Weather() {
     },
   ];
   useEffect(() => {
-    const url = "https://weather.visualcrossing.com/...";
+    const url =
+      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lebanon?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cprecip%2Cwindspeed%2Cicon&key=2FNMHGKU7AR2D7X8HQDFE2KDM&contentType=json";
 
     axios
       .get(url)
@@ -147,7 +151,7 @@ function Weather() {
         setDayDate(weekData, day);
       })
       .catch(console.error);
-  }, []); 
+  }, []);
 
   const setDayDate = (data, selectedDay) => {
     const chart = data[selectedDay].hours;
@@ -168,6 +172,9 @@ function Weather() {
       weather_icons.find((item) => item.key === data[selectedDay].icon)?.bg ||
         "bg-gray-600"
     );
+    setWind(data[selectedDay].windspeed);
+    setHumidity(data[selectedDay].humidity);
+    setPrecip(data[selectedDay].precip);
     setTemp(data[selectedDay].temp);
     setDate(dateFormat(data[selectedDay].datetime, "d mmmm dddd"));
   };
@@ -215,9 +222,22 @@ function Weather() {
             {formattedTime}
             <span className="text-xl text-white/70"> • {date}</span>
           </div>
-          <div className="text-9xl font-light mt-5">
-            <span className="font-bold">{temp}</span>
-            <span className="font-thin text-7xl relative bottom-16">°</span>c
+          <div className="flex justify-evenly items-center mt-5">
+            <div className="text-9xl font-light">
+              <span className="font-bold">{temp}</span>
+              <span className="font-thin text-7xl relative bottom-16">°</span>c
+            </div>
+            <div className="text-xl">
+              <div>
+                <FontAwesomeIcon icon={faDroplet} /> Humidity {humidity}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faCloudRain} /> Prcepitation {precip}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faWind} /> Wind {wind} km/h
+              </div>
+            </div>
           </div>
         </div>
         <div className="flex mt-10 ml-10 items-center">

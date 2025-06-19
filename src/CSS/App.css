@@ -323,7 +323,9 @@ i {
     animation: App-logo-spin infinite 20s linear;
   }
 }
-
+.weather {
+  display: none;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
