@@ -1,125 +1,272 @@
-import "../CSS/App.css";
 import axios from "axios";
-import Navbar from "./navbar";
-import { useEffect, useState } from "react";
 import dateFormat from "dateformat";
+import React from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCloud,
   faCloudBolt,
+  faCloudMoon,
   faCloudRain,
   faCloudShowersHeavy,
   faCloudSun,
-  faCloudSunRain,
+  faMoon,
   faSmog,
   faSnowflake,
   faSun,
 } from "@fortawesome/free-solid-svg-icons";
-import TodayCard from "./todayweather";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  LabelList,
+} from "recharts";
+
+import Navbar from "./navbar";
 
 function Weather() {
+  const [icon, setIcon] = useState("");
+  const [temp, setTemp] = useState("");
+  const [date, setDate] = useState("");
+  const [day, setDay] = useState(0);
+  const [hrs, setHrs] = useState([]);
+  const [week, setWeek] = useState([]);
+
+  const [time, setTime] = useState(new Date());
+  const [animate, setAnimate] = useState("");
+  const [bg, setBg] = useState("bg-gray-600");
   const weather_icons = [
-    { key: "0", icon: faSun, title: "Clear sky" },
-    { key: "1", icon: faCloudSun, title: "Mainly clear " },
-    { key: "2", icon: faCloudSun, title: "Partly cloudy" },
-    { key: "3", icon: faCloud, title: "Overcast" },
-    { key: "45", icon: faSmog, title: "Fog" },
-    { key: "48", icon: faSmog, title: "Depositing rime fog" },
-    { key: "51", icon: faCloudSunRain, title: "Light drizzle" },
-    { key: "53", icon: faCloudSunRain, title: "Mmoderate drizzle" },
-    { key: "55", icon: faCloudSunRain, title: "Dense drizzle" },
-    { key: "61", icon: faCloudRain, title: "Light Freezing Drizzle" },
-    { key: "63", icon: faCloudRain, title: "Dense Freezing Drizzle" },
-    { key: "65", icon: faCloudRain, title: "Slight Rain" },
-    { key: "66", icon: faCloudRain, title: "Moderate Rain" },
-    { key: "67", icon: faCloudRain, title: "Heavvy Rain" },
-    { key: "71", icon: faSnowflake, title: "Light Freezing Rain" },
-    { key: "73", icon: faSnowflake, title: "Heavy Freezing Rain" },
-    { key: "75", icon: faSnowflake, title: "Slight Snow fall" },
-    { key: "77", icon: faSnowflake, title: "Moderate Snow fall" },
-    { key: "80", icon: faCloudShowersHeavy, title: "Slight Rain showers" },
-    { key: "81", icon: faCloudShowersHeavy, title: "Moderate Rain showers" },
-    { key: "82", icon: faCloudShowersHeavy, title: "Violent Rain showers" },
-    { key: "85", icon: faSnowflake, title: "Slight Snow showers" },
-    { key: "86", icon: faSnowflake, title: "Heavy Snow showers" },
-    { key: "95", icon: faCloudBolt, title: "Slight Thunderstorm" },
-    { key: "96", icon: faCloudBolt, title: "Thunderstorm with slight hail" },
-    { key: "97", icon: faCloudBolt, title: "Thunderstorm with heavy hail" },
+    {
+      key: "clear-day",
+      icon: faSun,
+      title: "sun",
+      bg: "bg-gradient-to-bl from-amber-200 to-red-400",
+    },
+    {
+      key: "clear-night",
+      icon: faMoon,
+      title: "float",
+      bg: "bg-gradient-to-bl from-indigo-800 to-slate-300",
+    },
+    {
+      key: "partly-cloudy-day",
+      icon: faCloudSun,
+      title: "float",
+      bg: "bg-gradient-to-bl from-amber-200 to-neutral-400",
+    },
+    {
+      key: "partly-cloudy-night",
+      icon: faCloudMoon,
+      title: "float",
+      bg: "bg-gradient-to-bl from-blue-700 to-slate-500",
+    },
+    {
+      key: "cloudy-day",
+      icon: faCloud,
+      title: "float",
+      bg: "bg-gradient-to-bl from-yellow-400 to-neutral-500",
+    },
+    {
+      key: "cloudy-night",
+      icon: faCloud,
+      title: "float",
+      bg: "bg-gradient-to-bl from-blue-700 to-neutral-500",
+    },
+    {
+      key: "fog ",
+      icon: faSmog,
+      title: "float",
+      bg: "bg-gradient-to-bl from-slate-300 to-gray-400",
+    },
+    {
+      key: "rain",
+      icon: faCloudRain,
+      title: "float",
+      bg: "bg-gradient-to-bl from-indigo-600 to-violet-300",
+    },
+    {
+      key: "snow",
+      icon: faSnowflake,
+      title: "sun",
+      bg: "bg-gradient-to-bl from-slate-100 to-sky-100",
+    },
+    {
+      key: "snow-showers-day",
+      icon: faSnowflake,
+      title: "sun",
+      bg: "bg-gradient-to-bl from-slate-100 to-stone-500",
+    },
+    {
+      key: "snow-showers-night",
+      icon: faSnowflake,
+      title: "sun",
+      bg: "bg-gradient-to-bl from-slate-400 to-stone-500",
+    },
+    {
+      key: "showers-night",
+      icon: faCloudShowersHeavy,
+      bg: "bg=sky-900",
+    },
+    {
+      key: "showers-day",
+      icon: faCloudShowersHeavy,
+      title: "float",
+      bg: "bg=sky-900",
+    },
+    {
+      key: "thunder-rain",
+      icon: faCloudBolt,
+      title: "float",
+      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+    },
+    {
+      key: "thunder-showers-day",
+      icon: faCloudBolt,
+      title: "float",
+      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+    },
+    {
+      key: "thunder-showers-night",
+      icon: faCloudBolt,
+      title: "float",
+      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+    },
   ];
-  const [todayCard, SetToday] = useState();
-  const [weekCard, SetWeek] = useState([]);
-  const url =
-    "https://api.open-meteo.com/v1/forecast?latitude=33.8333&longitude=35.8333&current=temperature_2m,apparent_temperature,is_day,weather_code&hourly=temperature_2m,weather_code&daily=weather_code,temperature_2m_max&timezone=auto";
-  const createTodayCard = (data) => {
-    let title = "";
-    let currentIcon = "";
-    for (let i = 0; i < weather_icons.length; i++) {
-      const temp = parseInt(weather_icons[i].key);
-      if (temp === data.weather_code) {
-        currentIcon = <FontAwesomeIcon id="img" icon={weather_icons[i].icon} />;
-        title = weather_icons[i].title;
-        break;
-      }
-    }
-    const card = (
-      <TodayCard
-        weather={title}
-        temp={data.apparent_temperature}
-        time={dateFormat(data.time, "h:MM TT")}
-        icons={currentIcon}
-      />
-    );
-    SetToday(card);
-  };
-  const createWeekCards = (data) => {
-    const arr = [];
-    for (let i = 0; i < data.weather_code.length; i++) {
-      for (let j = 0; j < weather_icons.length; j++) {
-        const temp = parseInt(weather_icons[j].key);
-        if (temp === data.weather_code[i]) {
-          const weekIcon = (
-            <FontAwesomeIcon id="img" icon={weather_icons[j].icon} />
-          );
-          const card = (
-            <TodayCard
-              weather={weather_icons[j].title}
-              temp={data.temperature_2m_max[i]}
-              time={dateFormat(data.time[i], "dddd, mmmm dS")}
-              icons={weekIcon}
-            />
-          );
-          arr.push(card);
-          break;
-        }
-      }
-    }
-    SetWeek(arr);
-  };
-  const getAPI = () => {
-    axios
-      .get(url)
-      .then((resp) => {
-        createTodayCard(resp.data.current);
-        createWeekCards(resp.data.daily);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
   useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+
+    const url =
+      "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lebanon?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cprecip%2Cicon&key=2FNMHGKU7AR2D7X8HQDFE2KDM&contentType=json";
+
+    const getAPI = () => {
+      axios
+        .get(url)
+        .then((resp) => {
+          const chart = resp.data.days[day].hours;
+          const hourlyChartData = chart.map((hour) => ({
+            time: hour.datetime.split(":").slice(0, 2).join(":"),
+            temp: hour.temp,
+          }));
+          setHrs(hourlyChartData);
+          setWeek(resp.data.days.slice(0, 7));
+          setAnimate(
+            weather_icons.find((item) => item.key === resp.data.days[day].icon)
+              .title
+          );
+          setIcon(
+            weather_icons.find((item) => item.key === resp.data.days[day].icon)
+              .icon
+          );
+          setBg(
+            weather_icons.find((item) => item.key === resp.data.days[day].icon)
+              .bg
+          );
+          setTemp(resp.data.days[day].temp);
+
+          setDate(dateFormat(resp.data.days[day].datetime, "d mmmm dddd"));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
     getAPI();
-  }, []);
+    return () => clearInterval(interval);
+  }, [day, time,week]);
+  const formattedTime = time.toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
   return (
-    <div id="weather">
+    <div
+      className={`text-white justify-center items-center w-screen min-h-screen ${bg}`}
+    >
       <Navbar />
-      <div id="current" className="current float-container space-even">
-        {todayCard}
+      <div className={`px-32 flex justify-between `}>
+        <div className="py-10">
+          <div className="mt-20 mb-5 text-l flex justify-evenly gap-5">
+            {week.map((day) => {
+              return (
+                <div
+                  className="flex flex-col items-center"
+                  key={day.datetime}
+                  onClick={() => {
+                    setDay(week.indexOf(day));
+                  }}
+                >
+                  <div className="flex flex-col gap-y-2 items-center w-20 bg-white/40 rounded-full p-5 cursor-pointer hover:bg-white/65 transition-all duration-300">
+                    <div>
+                      <FontAwesomeIcon
+                        className="text-3xl"
+                        icon={
+                          weather_icons.find((item) => item.key === day.icon)
+                            .icon
+                        }
+                      />
+                    </div>
+                    <div>{day.temp}°</div>
+                  </div>
+                  <div>{dateFormat(day.datetime, "ddd")}</div>
+                </div>
+              );
+            })}
+          </div>
+          <div className=" text-3xl w-fit font-light">
+            {formattedTime}
+            <span className="text-xl text-white/70"> • {date}</span>
+          </div>
+          <div className="text-9xl font-light mt-5">
+            <span className="font-bold">{temp}</span>
+            <span className="font-thin text-7xl relative bottom-16">°</span>c
+          </div>
+        </div>
+        <div className="flex mt-10 ml-10 items-center">
+          <FontAwesomeIcon className={`weather  ${animate}`} icon={icon} />
+        </div>
       </div>
-      <div className="carousel">
-        <div id="days" className="carousel-wrapper">
-          {weekCard.map((weekWeather) => {
-            return <div>{weekWeather}</div>;
-          })}
+
+      <div className="sm:px-8 md:px-20 lg:px-24 pt-10">
+        <div className="w-full h-[100px] sm:h-[150px] md:h-[240px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <AreaChart data={hrs}>
+              <defs>
+                <linearGradient id="whiteGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#ffffff" stopOpacity={0.7} />
+                  <stop offset="95%" stopColor="#ffffff" stopOpacity={0} />
+                </linearGradient>
+              </defs>
+
+              <CartesianGrid strokeDasharray="3 3" stroke="#ffffff33" />
+              <XAxis hide={true} />
+              <YAxis hide={true} />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#1f2937",
+                  borderColor: "#4b5563",
+                  color: "white",
+                }}
+              />
+
+              <Area type="monotone" dataKey="temp" stroke="#ffffff" fill="none">
+                <LabelList
+                  dataKey="temp"
+                  position="top"
+                  style={{ fill: "#ffffff", fontSize: 12, fontWeight: "bold" }}
+                />
+                <LabelList
+                  dataKey="time"
+                  position="bottom"
+                  style={{ fill: "#ffffff", fontSize: 10 }}
+                />
+              </Area>
+            </AreaChart>
+          </ResponsiveContainer>
         </div>
       </div>
     </div>

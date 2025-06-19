@@ -8,7 +8,7 @@ a {
   font-size: 20px;
   text-decoration: none;
   padding: 5px;
-  margin-left:10px;
+  margin-left: 10px;
 }
 a:hover {
   color: white;
@@ -273,6 +273,8 @@ i {
   animation: spin 10s linear infinite;
 }
 .float {
+  -webkit-animation: MoveUpDown 10s linear infinite;
+  -moz-animation: MoveUpDown 10s linear infinite;
   animation: MoveUpDown 1s linear infinite;
 }
 
