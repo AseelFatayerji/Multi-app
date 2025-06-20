@@ -1,5 +1,5 @@
 import "../CSS/App.css";
-import Navbar from "./navbar";
+import Navbar from "../Assets/navbar";
 import { useEffect } from "react";
 
 function Calculator() {
