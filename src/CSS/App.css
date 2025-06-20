@@ -278,20 +278,25 @@ i {
   animation: MoveUpDown 5s linear infinite;
 }
 
-.animate-fadeIn {
-  animation: fadeIn 0.5s ease forwards;
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
 }
-@keyframes fadeIn {
+
+.fade-in.animate {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-
 @keyframes MoveUpDown {
   0%,
   100% {
@@ -322,9 +327,6 @@ i {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-}
-.weather {
-  display: none;
 }
 .App-header {
   background-color: #282c34;

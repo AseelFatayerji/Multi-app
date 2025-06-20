@@ -15,6 +15,7 @@ import {
   faSmog,
   faSnowflake,
   faSun,
+  faThermometer,
   faWind,
 } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -29,7 +30,7 @@ import {
 } from "recharts";
 
 function Weather() {
-  const [icon, setIcon] = useState("");
+  const [icon, setIcon] = useState(faThermometer);
   const [temp, setTemp] = useState("");
   const [wind, setWind] = useState("");
   const [humidity, setHumidity] = useState("");
@@ -39,106 +40,110 @@ function Weather() {
   const [day, setDay] = useState(0);
   const [hrs, setHrs] = useState([]);
 
+  const [transition, setTransition] = useState(false);
   const [time] = useState(new Date());
   const [animate, setAnimate] = useState("");
   const [bg, setBg] = useState("bg-gray-600");
-  const weather_icons = useMemo(() => [
-    {
-      key: "clear-day",
-      icon: faSun,
-      title: "sun",
-      bg: "bg-gradient-to-bl from-amber-200 to-red-400",
-    },
-    {
-      key: "clear-night",
-      icon: faMoon,
-      title: "float",
-      bg: "bg-gradient-to-bl from-indigo-800 to-slate-300",
-    },
-    {
-      key: "partly-cloudy-day",
-      icon: faCloudSun,
-      title: "float",
-      bg: "bg-gradient-to-bl from-amber-200 to-neutral-400",
-    },
-    {
-      key: "partly-cloudy-night",
-      icon: faCloudMoon,
-      title: "float",
-      bg: "bg-gradient-to-bl from-blue-700 to-slate-500",
-    },
-    {
-      key: "cloudy-day",
-      icon: faCloud,
-      title: "float",
-      bg: "bg-gradient-to-bl from-yellow-400 to-neutral-500",
-    },
-    {
-      key: "cloudy-night",
-      icon: faCloud,
-      title: "float",
-      bg: "bg-gradient-to-bl from-blue-700 to-neutral-500",
-    },
-    {
-      key: "fog ",
-      icon: faSmog,
-      title: "float",
-      bg: "bg-gradient-to-bl from-slate-300 to-gray-400",
-    },
-    {
-      key: "rain",
-      icon: faCloudRain,
-      title: "float",
-      bg: "bg-gradient-to-bl from-indigo-600 to-violet-300",
-    },
-    {
-      key: "snow",
-      icon: faSnowflake,
-      title: "sun",
-      bg: "bg-gradient-to-bl from-slate-100 to-sky-100",
-    },
-    {
-      key: "snow-showers-day",
-      icon: faSnowflake,
-      title: "sun",
-      bg: "bg-gradient-to-bl from-slate-100 to-stone-500",
-    },
-    {
-      key: "snow-showers-night",
-      icon: faSnowflake,
-      title: "sun",
-      bg: "bg-gradient-to-bl from-slate-400 to-stone-500",
-    },
-    {
-      key: "showers-night",
-      icon: faCloudShowersHeavy,
-      bg: "bg=sky-900",
-    },
-    {
-      key: "showers-day",
-      icon: faCloudShowersHeavy,
-      title: "float",
-      bg: "bg=sky-900",
-    },
-    {
-      key: "thunder-rain",
-      icon: faCloudBolt,
-      title: "float",
-      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
-    },
-    {
-      key: "thunder-showers-day",
-      icon: faCloudBolt,
-      title: "float",
-      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
-    },
-    {
-      key: "thunder-showers-night",
-      icon: faCloudBolt,
-      title: "float",
-      bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
-    },
-  ], []);
+  const weather_icons = useMemo(
+    () => [
+      {
+        key: "clear-day",
+        icon: faSun,
+        title: "sun",
+        bg: "bg-gradient-to-bl from-amber-200 to-red-400",
+      },
+      {
+        key: "clear-night",
+        icon: faMoon,
+        title: "float",
+        bg: "bg-gradient-to-bl from-indigo-800 to-slate-300",
+      },
+      {
+        key: "partly-cloudy-day",
+        icon: faCloudSun,
+        title: "float",
+        bg: "bg-gradient-to-bl from-amber-200 to-neutral-400",
+      },
+      {
+        key: "partly-cloudy-night",
+        icon: faCloudMoon,
+        title: "float",
+        bg: "bg-gradient-to-bl from-blue-700 to-slate-500",
+      },
+      {
+        key: "cloudy-day",
+        icon: faCloud,
+        title: "float",
+        bg: "bg-gradient-to-bl from-yellow-400 to-neutral-500",
+      },
+      {
+        key: "cloudy-night",
+        icon: faCloud,
+        title: "float",
+        bg: "bg-gradient-to-bl from-blue-700 to-neutral-500",
+      },
+      {
+        key: "fog ",
+        icon: faSmog,
+        title: "float",
+        bg: "bg-gradient-to-bl from-slate-300 to-gray-400",
+      },
+      {
+        key: "rain",
+        icon: faCloudRain,
+        title: "float",
+        bg: "bg-gradient-to-bl from-indigo-600 to-violet-300",
+      },
+      {
+        key: "snow",
+        icon: faSnowflake,
+        title: "sun",
+        bg: "bg-gradient-to-bl from-slate-100 to-sky-100",
+      },
+      {
+        key: "snow-showers-day",
+        icon: faSnowflake,
+        title: "sun",
+        bg: "bg-gradient-to-bl from-slate-100 to-stone-500",
+      },
+      {
+        key: "snow-showers-night",
+        icon: faSnowflake,
+        title: "sun",
+        bg: "bg-gradient-to-bl from-slate-400 to-stone-500",
+      },
+      {
+        key: "showers-night",
+        icon: faCloudShowersHeavy,
+        bg: "bg=sky-900",
+      },
+      {
+        key: "showers-day",
+        icon: faCloudShowersHeavy,
+        title: "float",
+        bg: "bg=sky-900",
+      },
+      {
+        key: "thunder-rain",
+        icon: faCloudBolt,
+        title: "float",
+        bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+      },
+      {
+        key: "thunder-showers-day",
+        icon: faCloudBolt,
+        title: "float",
+        bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+      },
+      {
+        key: "thunder-showers-night",
+        icon: faCloudBolt,
+        title: "float",
+        bg: "bg-gradient-to-bl from-gray-900 to-yellow-100",
+      },
+    ],
+    []
+  );
 
   const setDayDate = useCallback(
     (data, selectedDay) => {
@@ -153,8 +158,7 @@ function Weather() {
           ?.title || ""
       );
       setIcon(
-        weather_icons.find((item) => item.key === data[selectedDay].icon)
-          ?.icon || faCloud
+        weather_icons.find((item) => item.key === data[selectedDay].icon).icon
       );
       setBg(
         weather_icons.find((item) => item.key === data[selectedDay].icon)?.bg ||
@@ -166,14 +170,21 @@ function Weather() {
       setTemp(data[selectedDay].temp);
       setDate(dateFormat(data[selectedDay].datetime, "d mmmm dddd"));
     },
-    [ weather_icons]
+    [weather_icons]
   );
   const formattedTime = time.toLocaleTimeString([], {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
   });
+  const handleClick = () => {
+    setTransition(false);
+    requestAnimationFrame(() => {
+      setTransition(true);
+    });
+  };
   useEffect(() => {
+    setTransition(true);
     const url =
       "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/lebanon?unitGroup=metric&elements=datetime%2Ctemp%2Chumidity%2Cprecip%2Cwindspeed%2Cicon&key=2FNMHGKU7AR2D7X8HQDFE2KDM&contentType=json";
 
@@ -191,7 +202,11 @@ function Weather() {
       className={`text-white justify-center items-center w-screen min-h-screen ${bg}`}
     >
       <Navbar />
-      <div className={`px-32 flex justify-between `}>
+      <div
+        className={`px-32 flex justify-between fade-in ${
+          transition ? "animate" : ""
+        } `}
+      >
         <div className="py-10">
           <div className="mt-20 mb-5 text-l flex justify-evenly gap-5">
             {week.map((day, index) => {
@@ -202,6 +217,7 @@ function Weather() {
                   onClick={() => {
                     setDay(index);
                     setDayDate(week, index);
+                    handleClick();
                   }}
                 >
                   <div className="flex flex-col gap-y-2 items-center w-20 bg-white/40 rounded-full p-5 cursor-pointer hover:bg-white/65 transition-all duration-300">
@@ -225,7 +241,7 @@ function Weather() {
             {formattedTime}
             <span className="text-xl text-white/70"> • {date}</span>
           </div>
-          <div className="flex justify-evenly items-center mt-5">
+          <div className="flex justify-between items-center mt-5">
             <div className="text-9xl font-light">
               <span className="font-bold">{temp}</span>
               <span className="font-thin text-7xl relative bottom-16">°</span>c
