@@ -1,6 +1,6 @@
 import axios from "axios";
 import dateFormat from "dateformat";
-import Navbar from "./navbar";
+import Navbar from "../Assets/navbar";
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -241,7 +241,7 @@ function Weather() {
             {formattedTime}
             <span className="text-xl text-white/70"> • {date}</span>
           </div>
-          <div className="flex justify-between items-center mt-5">
+          <div className="flex gap-5 items-center mt-5">
             <div className="text-9xl font-light">
               <span className="font-bold">{temp}</span>
               <span className="font-thin text-7xl relative bottom-16">°</span>c
