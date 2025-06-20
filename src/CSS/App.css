@@ -3,7 +3,7 @@ body {
 }
 
 a {
-  color: rgb(112, 128, 144);
+  color: rgb(103, 103, 103);
   border-radius: 10px;
   font-size: 20px;
   text-decoration: none;
@@ -12,7 +12,7 @@ a {
 }
 a:hover {
   color: white;
-  background-color: rgb(112, 128, 144);
+  background-color: rgb(103, 103, 103);
 }
 input {
   background-color: darkgray;
