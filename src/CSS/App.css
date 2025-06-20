@@ -46,6 +46,10 @@ i {
   align-content: center;
   text-align: center;
 }
+.selected {
+  color: white;
+  background-color: rgb(103, 103, 103);
+}
 .center {
   position: relative;
 }
