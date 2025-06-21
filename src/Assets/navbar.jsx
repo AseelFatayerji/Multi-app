@@ -12,7 +12,6 @@ function Navbar() {
   const [select, setSelect] = useState(3);
   useEffect(() => {
     const path = window.location.pathname;
-    console.log(path);
     if (path === "/Multi-app") {
       setSelect(0);
     } else if (path === "/Multi-app/Todo") {
