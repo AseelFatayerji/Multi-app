@@ -21,7 +21,7 @@ function Todo() {
       : []
   );
   const [title, setTitle] = useState("");
-
+  console.log(boards, boardName);
   const draggable = <Draggable id="draggable">Go ahead, drag me.</Draggable>;
   function addBoard() {
     const newBoard = `board${boards.length + 1}`;
@@ -32,7 +32,8 @@ function Todo() {
   }
   function removeBoard(index) {
     const newBoard = boards.filter((_, i) => i !== index);
-    const newTitles = boards.filter((_, i) => i !== index);
+    const newTitles = boardName.filter((_, i) => i !== index);
+    console.log(newBoard, newTitles);
     setBoardName(newTitles);
     setBoards(newBoard);
     localStorage.setItem("boards", JSON.stringify(newBoard));
