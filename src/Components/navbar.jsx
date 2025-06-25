@@ -1,4 +1,5 @@
 import "../CSS/App.css";
+import image from "../Assets/image.png";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -21,16 +22,29 @@ function Navbar() {
     }
   }, []);
   return (
-    <div className=" fixed z-10 shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-r-lg backdrop-blur-sm bg-white/30 flex justify-end gap-10 p-5">
+    <div className=" fixed z-10 shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-r-lg backdrop-blur-sm bg-white/50 flex items-center justify-end p-2">
       <header className="">
-        <nav>
-          <Link to="/" className={select === 0 ? "selected" : ""} onClick={() => setSelect(0)}>
+        <nav className="flex items-center justify-center gap-2">
+          <img src={image} className="w-14 h-14" />
+          <Link
+            to="/"
+            className={select === 0 ? "selected" : ""}
+            onClick={() => setSelect(0)}
+          >
             <FontAwesomeIcon icon={faCloud} /> Weather
           </Link>
-          <Link to="/Todo" className={select === 1 ? "selected" : ""} onClick={() => setSelect(1)}>
+          <Link
+            to="/Todo"
+            className={select === 1 ? "selected" : ""}
+            onClick={() => setSelect(1)}
+          >
             <FontAwesomeIcon icon={faClipboard} /> Todo List
           </Link>
-          <Link to="/Calculator" className={select === 2 ? "selected" : ""} onClick={() => setSelect(2)}>
+          <Link
+            to="/Calculator"
+            className={select === 2 ? "selected" : ""}
+            onClick={() => setSelect(2)}
+          >
             <FontAwesomeIcon icon={faCalculator} /> Calculator
           </Link>
         </nav>
