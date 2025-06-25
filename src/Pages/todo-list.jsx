@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { DndContext } from "@dnd-kit/core";
-import { Draggable } from "../Assets/item";
-import { Board } from "../Assets/board";
+import { Draggable } from "../Components/item";
+import { Board } from "../Components/board";
 
-import Navbar from "../Assets/navbar";
+import Navbar from "../Components/navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAdd, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function Todo() {
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(
+    localStorage.getItem("items")
+      ? JSON.parse(localStorage.getItem("items"))
+      : []
+  );
   const [boards, setBoards] = useState(
     localStorage.getItem("boards")
       ? JSON.parse(localStorage.getItem("boards"))
@@ -21,24 +25,22 @@ function Todo() {
       : []
   );
   const [title, setTitle] = useState("");
-  console.log(boards, boardName);
   const draggable = <Draggable id="draggable">Go ahead, drag me.</Draggable>;
-  function addBoard() {
+  const addBoard = () => {
     const newBoard = `board${boards.length + 1}`;
     setBoardName([...boardName, title]);
     setBoards([...boards, newBoard]);
     localStorage.setItem("boards", JSON.stringify([...boards, newBoard]));
     localStorage.setItem("boardName", JSON.stringify([...boardName, title]));
-  }
-  function removeBoard(index) {
+  };
+  const removeBoard = (index) => {
     const newBoard = boards.filter((_, i) => i !== index);
     const newTitles = boardName.filter((_, i) => i !== index);
-    console.log(newBoard, newTitles);
     setBoardName(newTitles);
     setBoards(newBoard);
     localStorage.setItem("boards", JSON.stringify(newBoard));
     localStorage.setItem("boardName", JSON.stringify(newTitles));
-  }
+  };
   function handleDragEnd({ over }) {
     setParent(over ? over.id : null);
   }

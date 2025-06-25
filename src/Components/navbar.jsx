@@ -24,6 +24,9 @@ function Navbar() {
     <div className=" fixed z-10 shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-r-lg backdrop-blur-sm bg-white/30 flex justify-end gap-10 p-5">
       <header className="">
         <nav>
+           <Link to="/">
+            <img src="https://ik.imagekit.io/nzk6dmghx/fav.png?updatedAt=1750864284104" alt="Logo" className="w-10 h-10 inline-block mr-2" />
+          </Link>
           <Link to="/" className={select === 0 ? "selected" : ""} onClick={() => setSelect(0)}>
             <FontAwesomeIcon icon={faCloud} /> Weather
           </Link>

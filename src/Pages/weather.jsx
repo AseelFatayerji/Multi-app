@@ -1,6 +1,6 @@
 import axios from "axios";
 import dateFormat from "dateformat";
-import Navbar from "../Assets/navbar";
+import Navbar from "../Components/navbar";
 import { useCallback, useEffect, useState, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
