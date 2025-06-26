@@ -1,12 +1,6 @@
 import "../CSS/App.css";
 import image from "../Assets/image.png";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faClipboard,
-  faCloud,
-  faCalculator,
-} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 
 function Navbar() {
@@ -25,7 +19,7 @@ function Navbar() {
     <div className=" fixed z-10 shadow-[0px_3px_3px_4px_rgba(0,0,0,0.5)] rounded-r-lg backdrop-blur-sm bg-white/50 flex items-center justify-end p-2">
       <header className="">
         <nav className="flex items-center justify-center gap-2">
-          <img src={image} className="w-14 h-14" />
+          <img src={image} className="w-14 h-14" alt="logo"/>
           <Link
             to="/"
             className={select === 0 ? "selected" : ""}
