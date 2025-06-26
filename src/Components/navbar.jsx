@@ -31,21 +31,21 @@ function Navbar() {
             className={select === 0 ? "selected" : ""}
             onClick={() => setSelect(0)}
           >
-            <FontAwesomeIcon icon={faCloud} /> Weather
+            Weather
           </Link>
           <Link
             to="/Todo"
             className={select === 1 ? "selected" : ""}
             onClick={() => setSelect(1)}
           >
-            <FontAwesomeIcon icon={faClipboard} /> Todo List
+            Todo List
           </Link>
           <Link
             to="/Calculator"
             className={select === 2 ? "selected" : ""}
             onClick={() => setSelect(2)}
           >
-            <FontAwesomeIcon icon={faCalculator} /> Calculator
+            Calculator
           </Link>
         </nav>
       </header>
